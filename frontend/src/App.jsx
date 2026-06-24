@@ -2,7 +2,6 @@ import React , {useEffect} from "react";
 import Home from "./pages/Home";
 import { Outlet } from "react-router-dom";
 import socket from "./socket";
-import "./app.css"
 
 function App() {
 
