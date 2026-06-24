@@ -1,0 +1,10 @@
+# Node file
+node_modules/
+npm-debug.log
+.env
+
+# Vite build
+frontend/dist/
+
+# Logs
+*.log
