@@ -55,8 +55,9 @@ app.get("/products", async (req, res) => {
 app.use(express.static(path.join(__dirname, "frontend/dist")));
 
 // Catch‑all: send index.html for any non‑API route
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
 });
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
