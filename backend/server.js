@@ -11,14 +11,13 @@ app.use(express.static(path.join(__dirname, "frontend/dist")));
 
 app.use(cors({
   origin: [
-    "http://localhost:5173", // Vite dev server
-    "https://code-vector-z6tm.onrender.com" // deployed frontend URL
+    "http://localhost:5173",
+    "https://code-vector-z6tm.onrender.com" 
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
-// --- API route ---
 app.get("/products", async (req, res) => {
   const { limit = 20, cursor, category, direction = "next" } = req.query;
 
@@ -53,10 +52,8 @@ app.get("/products", async (req, res) => {
   res.json({ products, nextCursor, prevCursor });
 });
 
-// --- Serve frontend build ---
 app.use(express.static(path.join(__dirname, "frontend/dist")));
 
-// Catch‑all: send index.html for any non‑API route
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
 });
