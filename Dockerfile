@@ -3,7 +3,7 @@ FROM node:22-alpine AS frontend-build
 WORKDIR /app/frontend
 COPY code vector frontend/package*.json ./
 RUN npm install
-COPY frontend/ .
+COPY code vector frontend/ .
 RUN npm run build
 
 # Backend
@@ -11,10 +11,10 @@ FROM node:22-alpine
 WORKDIR /app
 COPY code Vector task/package*.json ./
 RUN npm install
-COPY backend/ .
+COPY code Vector task/ .
 
 # frontend build into backend
 COPY --from=frontend-build /app/frontend/dist ./frontend/dist
 
 EXPOSE 5000
-CMD ["node", "src/index.js"]
+CMD ["node", "src/server.js"]
