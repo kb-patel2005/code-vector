@@ -1,7 +1,8 @@
 const express = require("express");
+const path = require("path");
 const Product = require("./models/Product");
-
 const cors = require("cors");
+const { Op } = require("sequelize");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,8 +16,7 @@ app.use(cors({
   credentials: true
 }));
 
-const { Op } = require("sequelize");
-
+// --- API route ---
 app.get("/products", async (req, res) => {
   const { limit = 20, cursor, category, direction = "next" } = req.query;
 
@@ -37,7 +37,6 @@ app.get("/products", async (req, res) => {
 
   let products = await Product.findAll(options);
 
-  // Reverse for "prev" so UI still shows newest first
   if (direction === "prev") {
     products = products.reverse();
   }
@@ -52,5 +51,12 @@ app.get("/products", async (req, res) => {
   res.json({ products, nextCursor, prevCursor });
 });
 
+// --- Serve frontend build ---
+app.use(express.static(path.join(__dirname, "frontend/dist")));
+
+// Catch‑all: send index.html for any non‑API route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
+});
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
