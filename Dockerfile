@@ -1,17 +1,17 @@
 # frontend
 FROM node:22-alpine AS frontend-build
 WORKDIR /app/frontend
-COPY code vector frontend/package*.json ./
+COPY frontend/package*.json ./
 RUN npm install
-COPY code vector frontend/ .
+COPY frontend/ .
 RUN npm run build
 
 # Backend
 FROM node:22-alpine
 WORKDIR /app
-COPY code Vector task/package*.json ./
+COPY backend/package*.json ./
 RUN npm install
-COPY code Vector task/ .
+COPY backend/ .
 
 # frontend build into backend
 COPY --from=frontend-build /app/frontend/dist ./frontend/dist
