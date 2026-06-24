@@ -1,7 +1,7 @@
 # frontend
 FROM node:22-alpine AS frontend-build
 WORKDIR /app/frontend
-COPY frontend/package*.json ./
+COPY code vector frontend/package*.json ./
 RUN npm install
 COPY frontend/ .
 RUN npm run build
@@ -9,7 +9,7 @@ RUN npm run build
 # Backend
 FROM node:22-alpine
 WORKDIR /app
-COPY backend/package*.json ./
+COPY code Vector task/package*.json ./
 RUN npm install
 COPY backend/ .
 
