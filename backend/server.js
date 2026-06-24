@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: [
     "http://localhost:5173", // Vite dev server
-    "https://your-frontend.onrender.com" // deployed frontend URL
+    "https://code-vector-z6tm.onrender.com" // deployed frontend URL
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
