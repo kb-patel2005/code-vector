@@ -1,7 +1,7 @@
-const API_URL =
+export const API_URL =
   process.env.NODE_ENV === "production"
     ? "https://code-vector-z6tm.onrender.com"
-    : "http://localhost:5000/";
+    : "http://localhost:5000";
 
 export async function fetchProducts(params) {
   const query = new URLSearchParams(params).toString();
