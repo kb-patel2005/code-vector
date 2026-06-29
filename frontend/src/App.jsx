@@ -5,23 +5,6 @@ import socket from "./socket";
 
 function App() {
 
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Connected to krishchannel with id:", socket.id);
-
-      socket.emit("joinChannel", "krishchannel");
-    });
-
-    socket.on("disconnect", () => {
-      console.log("Disconnected from server");
-    });
-
-    return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-    };
-  }, []);
-
   return <Outlet />
 }
 

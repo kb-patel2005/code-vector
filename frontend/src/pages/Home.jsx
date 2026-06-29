@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ProductTable from "../components/ProductTable";
 import { fetchProducts } from "../api";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +26,7 @@ export default function Home() {
         }
     }
 
+
     useEffect(() => {
         socket.emit("joinChannel", "krishchannel");
 
@@ -40,9 +41,19 @@ export default function Home() {
             setProducts((prev) => prev.filter((p) => p.id != id));
         });
 
+        socket.on("productAdded", (product) => {
+            setProducts((prev) => {
+                if (category == "" || category == product.category) {
+                    return [product, ...prev];
+                }
+                return prev;
+            });
+        });
+
         return () => {
             socket.off("productUpdated");
             socket.off("productDeleted");
+            socket.off("productAdded");
         };
     }, []);
 
