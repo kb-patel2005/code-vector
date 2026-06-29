@@ -6,7 +6,6 @@ const Product = require("./models/Product");
 const cors = require("cors");
 const { Op } = require("sequelize");
 require("dotenv").config();
-const { socket } = require("socket.io")
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -92,6 +91,8 @@ app.post("/api/products", async (req, res) => {
       updated_at: new Date(),
     });
 
+    broadcastToKrish("productAdded",product);
+
     res.status(201).json(product);
   } catch (err) {
     console.error(err);
@@ -124,7 +125,7 @@ app.put("/api/products/:id", async (req, res) => {
   }
 });
 
-// Delete product
+// delete product
 app.delete("/api/products/:id", async (req, res) => {
   try {
     const { id } = req.params;
